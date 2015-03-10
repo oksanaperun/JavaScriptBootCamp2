@@ -141,6 +141,7 @@ function addNewBook() {
             getAnswerOfQuestion("What is the author's name? ", function (inputAuthorName) {
                 getAnswerOfQuestion("What is the author's surname? ", function (inputAuthorSurname) {
                     // implement: check correct boolean input
+                    // now value false only if entered nothing
                     getAnswerOfQuestion("Is the book for children (true/false)? ", function (inputIsForChildren) {
                         addEmptyBook();
                         updateBookInfoByPosition(catalog.length - 1, TITLE_FIELD, inputTitle);
@@ -182,6 +183,7 @@ function updateBook() {
                 console.log("Now you should choose field to update.")
                 printListOfFields();
                 getAnswerOfQuestion("Enter number of field to update. ", function (field) {
+                    // implement: check entered value according to the field
                     getAnswerOfQuestion("Enter new value of this field. ", function (value) {
                         updateBookInfoByPosition(position - 1, field, value);
                         console.log("Field is updated.");
@@ -201,14 +203,10 @@ function deleteBook() {
         if (searchResults.length > 0) {
             getAnswerOfQuestion("Delete book(s) from the list above (yes/no)? ", function (answer) {
                 if (answer == "yes") {
-                    for (var i = 0; i < searchResults.length; i++)
-                        for (var j = 0; j < catalog.length; j++) {
+                    for (var i = searchResults.length - 1; i >= 0; i--)
+                        for (var j = catalog.length - 1; j >= 0; j--) {
                             if (searchResults[i] == j) {
                                 catalog.splice(j, 1);
-                                /* works incorrect
-                               for (var z = i; z < searchResults.length; z++) {
-                                    searchResults[z + 1] -= 1;
-                                }*/
                             }
                         }
                     console.log("Books are deleted.");
