@@ -67,7 +67,8 @@ h1 {
 }
 
 li {
-	list-style-image: url(../img/flowers-icon.png);
+	list-style: none;
+	padding-bottom: 25px;
 }
 
 table.big-table {
