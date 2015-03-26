@@ -1,37 +1,18 @@
 function getReductionText(text, requiredLength) {
-    // If text length equals or less then required, return whole text
-    if (text.length <= requiredLength)
+    if (text.length <= requiredLength) // If text length equals or less then required, return whole text
         return text;
 
-    var correctLastSymbols = [ // Array of symbols which indicate end of the sentence or word
-            '.',
-            ';',
-            ',',
-            ' '
-        ],
-        minFirstSentence = text; // Minimum possible reduction of the text
+    var firstSentence = text.split(' ')[0]; // Finding sentence before first space
 
-    // Finding minimum possible reduction of the text
-    for (var i = 0; i < correctLastSymbols.length; i++) {
-        var firstSentence = text.split(correctLastSymbols[i])[0];
-
-        if (firstSentence.length < minFirstSentence.length)
-            minFirstSentence = firstSentence;
-    }
-
-    if (minFirstSentence.length > requiredLength) // Checking existence of logical reduction of the text to the maximum required length
+    if (firstSentence.length > requiredLength) // Checking existence of logical reduction of the text to the maximum required length
         return ''; // If there is no logical reduction of the text, return empty string
 
-    for (i = 0; i < correctLastSymbols.length; i++) {
-        if (text.substr(requiredLength, 1) == correctLastSymbols[i]) // Checking first symbol after required length
-            return text.substr(0, requiredLength);
+    text = text.substr(0, requiredLength + 1);
 
-        // Finding matching with symbol from the end of the reduction text to the maximum required length
-        for (var j = 0; j < requiredLength; j++)
-            if (text.substr(requiredLength - j, 1) == correctLastSymbols[i])
-                return text.substr(0, requiredLength - j);
-    }
-
+    // Finding a position of a last space in the text with required length
+    for (var j = text.length; j > 0; j--)
+        if (text.substr(j, 1) == ' ')
+            return text.substr(0, j);
 }
 
 // function test
